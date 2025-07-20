@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+*.swp
+*~
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+media/
+local_settings.py
+
+# venv
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Static and build
+staticfiles/
+build/
+dist/
+
+# If using dotenv
+*.env
+
+# If using coverage or pytest
+htmlcov/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
