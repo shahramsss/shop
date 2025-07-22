@@ -5,7 +5,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
 class UserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label="رمز عبور", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="رمز عبور", widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "رمز عبور"}))
     password2 = forms.CharField(label="تکرار رمز عبور", widget=forms.PasswordInput)
 
     class Meta:
@@ -28,9 +28,16 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(
-        help_text='you can change password using <a href=\"../password\">this form</a>'
+        help_text='you can change password using <a href="../password">this form</a>'
     )
 
     class Meta:
         model = User
         fields = ["email", "phone_number", "full_name", "password", "last_login"]
+
+
+class UserRegistrationForm(forms.Form):
+    email = forms.EmailField(label="ایمیل",widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "ایمیل"}))
+    full_name = forms.CharField(label="نام و نام خانوادگی", widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "نام و نام خانوادگی"}))
+    phone = forms.CharField(label="موبایل",max_length=11, widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "موبایل"}))
+    password = forms.CharField(label="رمز عبور",widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "رمز عبور"}))
