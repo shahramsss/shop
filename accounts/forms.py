@@ -70,4 +70,9 @@ class UserRegistrationForm(forms.Form):
 
 
 class VerifyCodeForm(forms.Form):
-    code = forms.IntegerField()
+    code = forms.IntegerField(
+        label="کد",
+        widget=forms.NumberInput(
+            attrs={"class": "form-control", "placeholder": "کد رسال شده"}
+        ),
+    )
