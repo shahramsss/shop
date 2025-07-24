@@ -68,6 +68,20 @@ class UserRegistrationForm(forms.Form):
         ),
     )
 
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        user = User.objects.filter(email=email).exists()
+        if user:
+            raise ValidationError("این ایمیل وجود دارد!")
+        return email
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        user = User.objects.filter(phone_number=phone).exists()
+        if user:
+            raise ValidationError("این موبایل وجود دارد!")
+        return phone
+
 
 class VerifyCodeForm(forms.Form):
     code = forms.IntegerField(
