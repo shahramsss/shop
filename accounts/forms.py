@@ -5,7 +5,12 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
 class UserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label="رمز عبور", widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "رمز عبور"}))
+    password1 = forms.CharField(
+        label="رمز عبور",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "رمز عبور"}
+        ),
+    )
     password2 = forms.CharField(label="تکرار رمز عبور", widget=forms.PasswordInput)
 
     class Meta:
@@ -37,7 +42,32 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegistrationForm(forms.Form):
-    email = forms.EmailField(label="ایمیل",widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "ایمیل"}))
-    full_name = forms.CharField(label="نام و نام خانوادگی", widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "نام و نام خانوادگی"}))
-    phone = forms.CharField(label="موبایل",max_length=11, widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "موبایل"}))
-    password = forms.CharField(label="رمز عبور",widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "رمز عبور"}))
+    email = forms.EmailField(
+        label="ایمیل",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "ایمیل"}
+        ),
+    )
+    full_name = forms.CharField(
+        label="نام و نام خانوادگی",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "نام و نام خانوادگی"}
+        ),
+    )
+    phone = forms.CharField(
+        label="موبایل",
+        max_length=11,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "موبایل"}
+        ),
+    )
+    password = forms.CharField(
+        label="رمز عبور",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "رمز عبور"}
+        ),
+    )
+
+
+class VerifyCodeForm(forms.Form):
+    code = forms.IntegerField()
