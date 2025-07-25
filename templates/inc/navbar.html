@@ -17,15 +17,21 @@
     <!-- بخش سمت راست: لینک‌های ورود و خروج -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:register' %}">ثبت نام</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ورود</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">خروج</a>
-        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">{{ user.full_name }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:logout' %}">خروج</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:register' %}">ثبت نام</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:login' %}">ورود</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

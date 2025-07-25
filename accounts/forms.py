@@ -90,3 +90,19 @@ class VerifyCodeForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "کد رسال شده"}
         ),
     )
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label="نام کاربری",
+        max_length=155,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "نام کاربری"}
+        ),
+    )
+    password = forms.CharField(
+        label="رمز عبور",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "رمز عبور"}
+        ),
+    )
