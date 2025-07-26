@@ -6,6 +6,7 @@ from utils import send_otp_code
 from .models import OtpCode, User
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class UserRegisterView(View):
@@ -89,7 +90,8 @@ class LoginView(View):
         return render(request, self.template_name, {"form": form})
 
 
-class LogoutView(View):
+class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
+        messages.success(request,'با موفیقیت خارج شدید.','success')
         return redirect("home:home")
