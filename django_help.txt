@@ -215,3 +215,117 @@ BaseUserManager چیست؟
 
 -----------------------------------------------------------------------------
 
+session_10
+
+static 
+load static up after extends
+
+-----------------------------------------------------------------------------
+
+session_11
+
+حتماً! 🌱
+بیایم خیلی ساده و در عین حال دقیق به **کلید خارجی (ForeignKey)** و **related\_name** در جنگو نگاه کنیم.
+
+---
+
+### 🔑 **کلید خارجی (ForeignKey)** چیست؟
+
+در مدل‌های جنگو برای تعریف رابطه‌ی **یک‌به‌چند (One‑to‑Many)** از `ForeignKey` استفاده می‌کنیم.
+مثال ساده:
+
+```python
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+```
+
+✅ هر **Product** به یک **Category** وابسته است.
+✅ یعنی `Product` یک فیلد `category` دارد که به مدل `Category` وصل است.
+
+---
+
+### ✨ **پارامتر `related_name`**
+
+وقتی یک کلید خارجی تعریف می‌کنی، جنگو به‌طور خودکار یک **رابطه‌ی معکوس** هم می‌سازد.
+یعنی از روی یک شیء `Category` می‌توانی به لیست محصولاتش برسـی.
+
+به‌طور پیش‌فرض اسم این رابطه معکوس به صورت `<نام مدل کوچک>_set` است.
+
+```python
+cat = Category.objects.get(id=1)
+cat.product_set.all()   # همه‌ی محصول‌های این دسته‌بندی
+```
+
+ولی اگر بخواهی این اسم معکوس را خودت تعیین کنی، از `related_name` استفاده می‌کنی:
+
+```python
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='products'
+    )
+```
+
+حالا:
+
+```python
+cat = Category.objects.get(id=1)
+cat.products.all()   # چون related_name='products'
+```
+
+---
+
+### 🔧 **نکات مهم:**
+
+✅ `related_name` فقط برای **رابطه معکوس** استفاده می‌شود، نه برای دسترسی از سمت کلید خارجی.
+از سمت Product همچنان می‌گویی:
+
+```python
+product.category
+```
+
+✅ اگر `related_name` را ننویسی، جنگو به‌طور پیش‌فرض از `<modelname>_set` استفاده می‌کند.
+
+✅ اگر نمی‌خواهی رابطه معکوس بسازی (یعنی از سمت Category به محصولات دسترسی نداشته باشی):
+
+```python
+category = models.ForeignKey(
+    Category,
+    on_delete=models.CASCADE,
+    related_name='+'
+)
+```
+
+---
+
+### 🧭 **مثال کاربردی‌تر**
+
+فرض کن هر پست وبلاگ به یک نویسنده وصل است:
+
+```python
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.CASCADE,
+        related_name='posts'
+    )
+```
+
+حالا می‌تونی:
+
+```python
+a = Author.objects.get(id=1)
+a.posts.all()     # همه‌ی پست‌های این نویسنده
+```
+-----------------------------------------------------------------------------
+
