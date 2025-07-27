@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  {% for category in categories %}
+    <a href="{{category.get_absolute_url}}" class="btn btn-info my-2">{{ category }}</a>
+  {% endfor %}
   {% if products %}
     <div class="row row-cols-1 row-cols-md-3 g-4 my-2">
       {% for product in products %}
         <div class="col">
           <div class="card h-100">
-            <img src="{{product.image.url}}" class="card-img-top" alt="..." />
+            <img src="{{ product.image.url }}" class="card-img-top" alt="..." />
             <div class="card-body">
               <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
-              <p class="card-text">{{product.description}}</p>
+              <p class="card-text">{{ product.description }}</p>
             </div>
             <div class="card-footer">
-              <p class="text-body-secondary">قیمت: {{product.price}}</p>
+              <p class="text-body-secondary">قیمت: {{ product.price }}</p>
             </div>
           </div>
         </div>
