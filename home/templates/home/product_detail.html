@@ -17,7 +17,11 @@
             {% endif %}
           </div>
           <div class="card-footer text-muted">
-            <small>تاریخ بروزرسانی: {{ product.updated }}</small>
+            <form action="{% url 'orders:cart_add' product.id %}" method="post">
+              {% csrf_token %}
+              {{form.as_p}}
+              <input class="btn btn-info" type="submit", value="اضافه به سبد خرید">
+            </form>
           </div>
         </div>
         <div class="mt-3">

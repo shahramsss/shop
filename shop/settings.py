@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     # local apps
     "home",
     "accounts",
+    "orders",
+    
     # third apps
     "django_celery_beat"
 ]
