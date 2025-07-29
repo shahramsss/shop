@@ -16,15 +16,15 @@
           </tr>
         </thead>
         <tbody>
-          {% for item in cart_items %}
+          {% for item in cart %}
             <tr>
               <td>
                 <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" style="width: 60px; height: auto;" />
               </td>
-              <td>{{ item.product.title }}</td>
+              <td>{{ item.product }}</td>
               <td>{{ item.product.price|floatformat:0 }} تومان</td>
               <td>
-                <form method="post" action="{% url 'orders:update_cart' item.id %}">
+                <form method="post" action="">
                   {% csrf_token %}
                   <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" style="width: 60px;" />
                   <button type="submit" class="btn btn-sm btn-outline-primary">بروزرسانی</button>
@@ -32,7 +32,7 @@
               </td>
               <td>{{ item.total_price|floatformat:0 }} تومان</td>
               <td>
-                <form method="post" action="{% url 'orders:remove_from_cart' item.id %}">
+                <form method="post" action="">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-sm btn-danger">حذف</button>
                 </form>

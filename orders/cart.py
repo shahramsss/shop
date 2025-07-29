@@ -16,10 +16,10 @@ class Cart:
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
         for product in products:
-            cart[str(product.id)]["product"] = product
+            cart[str(product.id)]['product'] = product
 
         for item in cart.values():
-            item["total_price"] = int(item["price"]) * item["quantity"]
+            item['total_price'] = int(item['price']) * item['quantity']
             yield item
 
     def add(self, product, quantity):
