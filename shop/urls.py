@@ -24,9 +24,9 @@ from django.shortcuts import render
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("home.urls")),
-    path("accounts/", include("accounts.urls")),
-    path("orders/", include("orders.urls") ),
+    path("", include("home.urls", namespace="home")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("orders/", include("orders.urls", namespace="orders")),
 ]
 
 if settings.DEBUG:

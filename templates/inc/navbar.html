@@ -38,9 +38,7 @@
           <li class="nav-item">
             <a class="nav-link text-info {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'orders:cart' %}">
               سبد خرید
-              <span class=" badge rounded-pill bg-danger">
-                {{ cart|length }}
-              </span>
+              <span class="badge rounded-pill bg-danger">{{ cart|length }}</span>
             </a>
           </li>
         {% else %}
