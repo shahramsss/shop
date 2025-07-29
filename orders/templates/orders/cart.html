@@ -32,10 +32,7 @@
               </td>
               <td>{{ item.total_price|floatformat:0 }} تومان</td>
               <td>
-                <form method="post" action="">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-sm btn-danger">حذف</button>
-                </form>
+                <a class="btn btn-sm btn-danger" href= {% url 'orders:cart_remove' item.product.id %}>حذف</a>
               </td>
             </tr>
           {% empty %}
@@ -44,11 +41,12 @@
             </tr>
           {% endfor %}
         </tbody>
-        {% if cart_items %}
+        {% if cart %}
           <tfoot>
             <tr class="table-success fw-bold">
               <td colspan="4">جمع کل</td>
-              <td colspan="2">{{ cart_total|floatformat:0 }} تومان</td>
+              <td >{{ cart.get_total_price|floatformat:0 }} تومان</td>
+              <td > </td>
             </tr>
           </tfoot>
         {% endif %}
