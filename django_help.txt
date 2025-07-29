@@ -329,3 +329,10 @@ a.posts.all()     # همه‌ی پست‌های این نویسنده
 ```
 -----------------------------------------------------------------------------
 
+get user:
+
+from .model import user
+
+settings.AUTH_USER_MODEL
+
+from django.contrib.auth import get_user_model
