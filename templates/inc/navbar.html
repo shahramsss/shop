@@ -36,7 +36,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-info {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'orders:cart' %}">سبد خرید</a>
+            <a class="nav-link text-info {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'orders:cart' %}">سبد خرید {{cart|length}}</a>
           </li>
         {% else %}
           <li class="nav-item">
