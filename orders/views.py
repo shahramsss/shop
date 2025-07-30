@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from home.models import Product
 from .cart import Cart
-from .forms import CartAddForm
+from .forms import CartAddForm, CouponApplayForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import OrderItem, Order
+from .models import OrderItem, Order, Coupon
+import datetime
+from django.contrib import messages
 
 
 class CartView(View):
@@ -32,9 +34,13 @@ class CartRemoveView(View):
 
 
 class OrderDetailView(LoginRequiredMixin, View):
+    form_class = CouponApplayForm()
+
     def get(self, request, order_id):
         order = get_object_or_404(Order, id=order_id)
-        return render(request, "orders/order.html", {"order": order})
+        return render(
+            request, "orders/order.html", {"order": order, "form": self.form_class}
+        )
 
 
 class OrderCreateView(LoginRequiredMixin, View):
@@ -49,4 +55,28 @@ class OrderCreateView(LoginRequiredMixin, View):
                 quantity=item["quantity"],
             )
         cart.clear()
-        return redirect('orders:order_detail' , order.id)
+        return redirect("orders:order_detail", order.id)
+
+
+class CouponApplyView(LoginRequiredMixin, View):
+    form_class = CouponApplayForm
+
+    def post(self, request, order_id):
+        now = datetime.datetime.now()
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data["code"]
+            try:
+                coupon = Coupon.objects.get(
+                    code__exact=code,
+                    valid_from__lte=now,
+                    valid_to__gte=now,
+                    active=True,
+                )
+            except Coupon.DoesNotExist:
+                messages.error(request, "این کد تخفیف وجود ندارد!", "danger")
+                return redirect("orders:order_detail", order_id)
+            order = Order.objects.get(id=order_id)
+            order.discount = coupon.discount
+            order.save()
+            return redirect("orders:order_detail", order_id)

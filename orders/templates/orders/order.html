@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>سفارش</h3>
-<P>مبلغ کل: {{order.get_total_price}}</P>
+  <h3>سفارش</h3>
+  <P>مبلغ کل: {{ order.get_total_price }}</P>
 
+  <form action="{% url 'orders:apply_coupon' order.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-info" type="submit" value="ثبت کد">
+  </form>
 {% endblock %}
