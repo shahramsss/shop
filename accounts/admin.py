@@ -23,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
 
     fieldsets = (
         (None, {"fields": ("email", "phone_number", "full_name", "password")}),
-        ("Permissions", {"fields": ("is_active", "is_admin", "last_login")}),
+        ("Permissions", {"fields": ("is_active", "is_admin","is_superuser", "last_login", 'groups', 'user_permissions')}),
     )
 
     # 👇👇 این بخش رو اضافه کن تا مشکل username و usable_password حل بشه
@@ -45,7 +45,7 @@ class UserAdmin(BaseUserAdmin):
 
     search_fields = ("email", "full_name")
     ordering = ("full_name",)
-    filter_horizontal = ()
+    filter_horizontal = ('groups', 'user_permissions')
 
 
 admin.site.unregister(Group)

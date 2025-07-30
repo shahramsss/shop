@@ -336,3 +336,14 @@ from .model import user
 settings.AUTH_USER_MODEL
 
 from django.contrib.auth import get_user_model
+
+-----------------------------------------------------------------------------
+
+permissions 
+
+intemplates:
+perms.<app name>.<access>_<model name>
+sample: {{perms.home.add_order}}
+
+in view:
+request.user.has_perm(oreders.add_order)
