@@ -347,3 +347,6 @@ sample: {{perms.home.add_order}}
 
 in view:
 request.user.has_perm(oreders.add_order)
+
+admin:  readonly_fields
+
