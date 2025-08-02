@@ -38,7 +38,6 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-    # 👇👇 این بخش رو اضافه کن تا مشکل username و usable_password حل بشه
     add_fieldsets = (
         (
             None,
